@@ -536,8 +536,11 @@
                     </p>
                 </div>
 
-                <form id="recruitment-form" onsubmit="handleFormSubmit(event)"
+                <form id="recruitment-form" name="contact" method="POST" data-netlify="true"
+                    onsubmit="handleFormSubmit(event)"
                     class="bg-slate-900/60 backdrop-blur-md p-6 md:p-12 rounded-2xl border border-slate-800 shadow-2xl">
+                    <!-- Netlify Forms用の隠しフィールド -->
+                    <input type="hidden" name="form-name" value="contact" />
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                         <!-- Name -->
                         <div class="form-group">
@@ -825,20 +828,35 @@
             btn.innerText = 'SENDING...';
             btn.classList.add('animate-pulse');
 
-            // 擬似送信遅延
-            setTimeout(() => {
-                // 完了画面へ切り替え
-                document.getElementById('entry-form-container').classList.add('hidden');
-                document.getElementById('success-message').classList.remove('hidden');
+            // Netlifyへの送信処理
+            const formData = new FormData(event.target);
 
-                // ボタン状態リセット
-                btn.disabled = false;
-                btn.innerText = originalText;
-                btn.classList.remove('animate-pulse');
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+                .then(() => {
+                    // 成功時の処理
+                    document.getElementById('entry-form-container').classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
 
-                // フォームリセット
-                event.target.reset();
-            }, 1500);
+                    // ボタン状態リセット
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                    btn.classList.remove('animate-pulse');
+
+                    // フォームリセット
+                    event.target.reset();
+                })
+                .catch((error) => {
+                    console.error('Form submission error:', error);
+                    alert("送信に失敗しました。もう一度お試しください。");
+                    // ボタン状態リセット
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                    btn.classList.remove('animate-pulse');
+                });
         }
     </script>
 </body>
