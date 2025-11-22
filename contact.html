@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Y.Y.creation</title>
+    <meta name="description" content="WEB・映像・写真制作に関するご相談・お見積もりはこちら。Y.Y.creationは企業の想いを可視化するクリエイティブパートナーです。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A', // Deep Navy (Trust)
+                        accent: '#C8A353',  // Gold/Bronze (Asset/Value)
+                        light: '#F8F9FA',   // Very Light Gray (Clean)
+                        text: '#2D3436',    // Soft Black
+                        'text-muted': '#636E72',
+                    },
+                    fontFamily: {
+                        sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+                        serif: ['"Shippori Mincho"', 'serif'],
+                        display: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    letterSpacing: {
+                        relaxed: '.05em',
+                        widest: '.2em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-feature-settings: "palt";
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Custom Checkbox/Radio Styles */
+        .custom-checkbox:checked+div {
+            background-color: #0F172A;
+            border-color: #0F172A;
+        }
+
+        .custom-checkbox:checked+div::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 8px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .custom-radio:checked+div {
+            border-color: #C8A353;
+        }
+
+        .custom-radio:checked+div::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background-color: #C8A353;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-text antialiased bg-white tracking-relaxed overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 md:h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="group">
+                        <span
+                            class="font-display text-2xl md:text-3xl font-semibold text-primary tracking-widest group-hover:opacity-80 transition">
+                            Y.Y.<span class="text-accent">creation</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex space-x-10 items-center">
+                    <a href="index.html#concept"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">CONCEPT</a>
+                    <a href="index.html#service"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">SERVICE</a>
+                    <a href="index.html#works"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">WORKS</a>
+                    <a href="index.html#plan"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">PLAN</a>
+                    <a href="index.html#company"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">COMPANY</a>
+                    <a href="index.html#news"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">NEWS</a>
+                </nav>
+
+                <!-- CTA Buttons -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="contact.html"
+                        class="text-primary text-xs font-medium tracking-widest hover:text-accent transition duration-300 border-b border-transparent border-accent pb-1">
+                        お問い合わせ
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="menu-btn" class="text-primary hover:text-accent focus:outline-none transition">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-white border-t border-gray-100 overflow-hidden absolute w-full">
+            <div class="px-6 pt-8 pb-10 space-y-4 bg-white shadow-xl">
+                <a href="index.html#concept"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">CONCEPT</a>
+                <a href="index.html#service"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">SERVICE</a>
+                <a href="index.html#works"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">WORKS</a>
+                <a href="index.html#plan"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">PLAN</a>
+                <a href="index.html#company"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">COMPANY</a>
+                <a href="index.html#news"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">NEWS</a>
+                <div class="pt-8 space-y-4 border-t border-gray-100 mt-4">
+                    <a href="contact.html"
+                        class="block w-full text-center bg-primary text-white px-4 py-3 text-sm tracking-widest">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="relative pt-40 pb-20 bg-light">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-accent font-display text-sm tracking-widest mb-4 block">CONTACT</span>
+            <h1 class="font-serif text-3xl md:text-5xl text-primary font-medium mb-8">無料相談・お見積もり</h1>
+            <p class="text-text-muted text-sm md:text-base leading-loose">
+                制作に関するご相談、お見積もりのご依頼など、<br class="hidden md:block">お気軽にお問い合わせください。通常1営業日以内に返信いたします。
+            </p>
+        </div>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <form name="contact" method="POST" data-netlify="true" class="space-y-12">
+
+                <!-- 1. Customer Info -->
+                <div>
+                    <h2 class="font-display text-xl text-primary border-b border-gray-200 pb-4 mb-8 tracking-widest">01.
+                        Customer Info</h2>
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="company"
+                                    class="block text-xs font-bold text-primary tracking-widest mb-2">会社名 <span
+                                        class="text-accent">*</span></label>
+                                <input type="text" name="company" id="company" required
+                                    class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                                    placeholder="株式会社〇〇">
+                            </div>
+                            <div>
+                                <label for="name" class="block text-xs font-bold text-primary tracking-widest mb-2">お名前
+                                    <span class="text-accent">*</span></label>
+                                <input type="text" name="name" id="name" required
+                                    class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                                    placeholder="山田 太郎">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email"
+                                    class="block text-xs font-bold text-primary tracking-widest mb-2">メールアドレス <span
+                                        class="text-accent">*</span></label>
+                                <input type="email" name="email" id="email" required
+                                    class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                                    placeholder="example@email.com">
+                            </div>
+                            <div>
+                                <label for="phone"
+                                    class="block text-xs font-bold text-primary tracking-widest mb-2">電話番号 <span
+                                        class="text-accent">*</span></label>
+                                <input type="tel" name="phone" id="phone" required
+                                    class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                                    placeholder="03-1234-5678">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Inquiry Type -->
+                <div>
+                    <h2 class="font-display text-xl text-primary border-b border-gray-200 pb-4 mb-8 tracking-widest">02.
+                        Inquiry Type</h2>
+                    <div>
+                        <label class="block text-xs font-bold text-primary tracking-widest mb-4">ご相談内容（複数選択可） <span
+                                class="text-accent">*</span></label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="月額10,000円WEB制作プラン"
+                                    class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">月額10,000円WEB制作プラン</span>
+                            </label>
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="WEBサイト制作（オーダーメイド）"
+                                    class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">WEBサイト制作（オーダーメイド）</span>
+                            </label>
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="映像制作（動画・ドローン）"
+                                    class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">映像制作（動画・ドローン）</span>
+                            </label>
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="スチール撮影（写真）" class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">スチール撮影（写真）</span>
+                            </label>
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="トータルブランディング" class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">トータルブランディング</span>
+                            </label>
+                            <label class="relative flex items-center cursor-pointer group">
+                                <input type="checkbox" name="type" value="その他" class="sr-only custom-checkbox">
+                                <div
+                                    class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                                </div>
+                                <span class="text-sm text-text">その他</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Project Details -->
+                <div>
+                    <h2 class="font-display text-xl text-primary border-b border-gray-200 pb-4 mb-8 tracking-widest">03.
+                        Project Details</h2>
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="budget"
+                                    class="block text-xs font-bold text-primary tracking-widest mb-2">ご予算</label>
+                                <div class="relative">
+                                    <select name="budget" id="budget"
+                                        class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300 appearance-none">
+                                        <option value="">選択してください</option>
+                                        <option value="〜50万円">〜50万円</option>
+                                        <option value="50〜100万円">50〜100万円</option>
+                                        <option value="100〜300万円">100〜300万円</option>
+                                        <option value="300万円以上">300万円以上</option>
+                                        <option value="月額プラン希望">月額プラン希望</option>
+                                        <option value="未定">未定</option>
+                                    </select>
+                                    <div
+                                        class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="deadline"
+                                    class="block text-xs font-bold text-primary tracking-widest mb-2">希望納期</label>
+                                <div class="relative">
+                                    <select name="deadline" id="deadline"
+                                        class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300 appearance-none">
+                                        <option value="">選択してください</option>
+                                        <option value="急ぎ（1ヶ月以内）">急ぎ（1ヶ月以内）</option>
+                                        <option value="2〜3ヶ月以内">2〜3ヶ月以内</option>
+                                        <option value="半年以内">半年以内</option>
+                                        <option value="未定">未定</option>
+                                    </select>
+                                    <div
+                                        class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="url"
+                                class="block text-xs font-bold text-primary tracking-widest mb-2">現サイトURL（ある場合）</label>
+                            <input type="url" name="url" id="url"
+                                class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                                placeholder="https://">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-primary tracking-widest mb-4">撮影の有無</label>
+                            <div class="flex flex-wrap gap-6">
+                                <label class="relative flex items-center cursor-pointer group">
+                                    <input type="radio" name="media_needs" value="依頼したい" class="sr-only custom-radio">
+                                    <div
+                                        class="w-5 h-5 border border-gray-300 rounded-full mr-3 relative transition group-hover:border-accent">
+                                    </div>
+                                    <span class="text-sm text-text">依頼したい</span>
+                                </label>
+                                <label class="relative flex items-center cursor-pointer group">
+                                    <input type="radio" name="media_needs" value="相談したい" class="sr-only custom-radio">
+                                    <div
+                                        class="w-5 h-5 border border-gray-300 rounded-full mr-3 relative transition group-hover:border-accent">
+                                    </div>
+                                    <span class="text-sm text-text">相談したい</span>
+                                </label>
+                                <label class="relative flex items-center cursor-pointer group">
+                                    <input type="radio" name="media_needs" value="不要（素材あり）"
+                                        class="sr-only custom-radio">
+                                    <div
+                                        class="w-5 h-5 border border-gray-300 rounded-full mr-3 relative transition group-hover:border-accent">
+                                    </div>
+                                    <span class="text-sm text-text">不要（素材あり）</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Message -->
+                <div>
+                    <h2 class="font-display text-xl text-primary border-b border-gray-200 pb-4 mb-8 tracking-widest">04.
+                        Message</h2>
+                    <div>
+                        <label for="content" class="block text-xs font-bold text-primary tracking-widest mb-2">詳細 <span
+                                class="text-accent">*</span></label>
+                        <textarea name="content" id="content" rows="6" required
+                            class="w-full bg-gray-50 border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-accent focus:bg-white transition duration-300"
+                            placeholder="ご相談の背景や、解決したい課題をご自由にご記入ください。"></textarea>
+                    </div>
+                </div>
+
+                <!-- 5. Privacy -->
+                <div class="pt-6 border-t border-gray-100">
+                    <label class="relative flex items-center justify-center cursor-pointer group">
+                        <input type="checkbox" name="privacy" required class="sr-only custom-checkbox">
+                        <div class="w-5 h-5 border border-gray-300 mr-3 relative transition group-hover:border-primary">
+                        </div>
+                        <span class="text-sm text-text">プライバシーポリシーに同意する</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-8">
+                    <button type="submit"
+                        class="bg-primary text-white px-12 py-4 text-sm font-display tracking-widest hover:bg-accent hover:text-primary transition duration-500 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        SEND MESSAGE
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary text-white pt-16 md:pt-24 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest">
+                <div class="flex space-x-8 mb-6 md:mb-0">
+                    <a href="#" class="hover:text-white transition">会社概要</a>
+                    <a href="#" class="hover:text-white transition">プライバシーポリシー</a>
+                    <a href="#" class="hover:text-white transition">特定商取引法に基づく表記</a>
+                </div>
+                <p class="font-display">&copy; 2023 Y.Y.creation All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
