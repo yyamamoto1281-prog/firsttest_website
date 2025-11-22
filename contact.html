@@ -176,7 +176,24 @@
     <!-- FORM SECTION -->
     <section class="py-20 bg-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form name="contact" method="POST" data-netlify="true" class="space-y-12">
+            <!-- Success Message (Hidden by default) -->
+            <div id="success-message" class="hidden text-center py-20 fade-in-up">
+                <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-check text-white text-3xl"></i>
+                </div>
+                <h2 class="font-serif text-2xl md:text-3xl text-primary mb-6">お問い合わせありがとうございます。</h2>
+                <p class="text-text-muted leading-loose mb-10">
+                    お問い合わせいただき、誠にありがとうございます。<br>
+                    内容を確認の上、3営業日以内に担当者よりご連絡を差し上げます。<br>
+                    今しばらくお待ちいただけますようお願い申し上げます。
+                </p>
+                <a href="index.html"
+                    class="inline-block border border-primary text-primary px-10 py-3 text-xs font-display tracking-widest hover:bg-primary hover:text-white transition duration-300">
+                    BACK TO TOP
+                </a>
+            </div>
+
+            <form id="contact-form" name="contact" method="POST" data-netlify="true" class="space-y-12">
 
                 <!-- 1. Customer Info -->
                 <div>
@@ -385,7 +402,7 @@
 
                 <!-- Submit Button -->
                 <div class="text-center pt-8">
-                    <button type="submit"
+                    <button type="submit" id="submit-btn"
                         class="bg-primary text-white px-12 py-4 text-sm font-display tracking-widest hover:bg-accent hover:text-primary transition duration-500 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
                         SEND MESSAGE
                     </button>
@@ -418,6 +435,42 @@
 
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form Submission Handling
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Loading State
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'SENDING...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70');
+
+            const formData = new FormData(form);
+
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+                .then(() => {
+                    // Success
+                    form.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                })
+                .catch((error) => {
+                    console.error('Form submission error:', error);
+                    alert('送信に失敗しました。時間をおいて再度お試しください。');
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70');
+                });
         });
     </script>
 </body>
