@@ -1,866 +1,724 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RECRUITMENT | 朝日プラントエンジニアリング株式会社</title>
+    <title>Y.Y.creation | 想いを資産へ</title>
+    <meta name="description" content="見えない『想い』を、揺るぎない『資産』へ。WEB・映像・写真の力で、企業の体温を可視化するクリエイティブパートナー。">
+
+    <!-- Google Fonts -->
+    <!-- 高級感を演出するための厳選されたフォントファミリー -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
-        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A', // Deep Navy (Trust)
+                        accent: '#C8A353',  // Gold/Bronze (Asset/Value)
+                        light: '#F8F9FA',   // Very Light Gray (Clean)
+                        text: '#2D3436',    // Soft Black
+                        'text-muted': '#636E72',
+                    },
+                    fontFamily: {
+                        // 本文・機能的なテキスト用 (Zen Kaku Gothic New)
+                        sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+                        // 日本語の見出し・情緒的なテキスト用 (Shippori Mincho)
+                        serif: ['"Shippori Mincho"', 'serif'],
+                        // 英語の見出し・装飾用 (Cormorant Garamond)
+                        display: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    letterSpacing: {
+                        relaxed: '.05em',
+                        widest: '.2em',
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-
-        /* カスタムアニメーション */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
+        /* Custom Styles for Animations */
+        .fade-in-up {
             opacity: 0;
-            /* 初期状態は非表示 */
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .delay-100 {
-            animation-delay: 0.1s;
-        }
-
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-300 {
-            animation-delay: 0.3s;
-        }
-
-        @keyframes pulse-slow {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .animate-pulse-slow {
-            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        /* スライドショー用クラス */
-        .slide-image {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            opacity: 0;
-            transform: scale(1);
-            filter: brightness(1.2) contrast(1.1);
-        }
-
-        .slide-image.active {
+        .fade-in-up.visible {
             opacity: 1;
-            transform: scale(1.05);
+            transform: translateY(0);
+        }
+
+        /* Hero Image Overlay Gradient */
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
+        }
+
+        /* Smooth Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        /* Typography Base Settings */
+        body {
+            font-feature-settings: "palt";
+            /* プロポーショナルメトリクス有効化 */
+        }
+
+        /* Text Shadow for better readability on images */
+        .text-shadow-sm {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-900 overflow-x-hidden">
+<body class="font-sans text-text antialiased bg-white tracking-relaxed">
 
-    <!-- ==============================
-         NAVIGATION
-    =============================== -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <!-- Logo -->
-            <div class="flex items-center gap-2 z-50 cursor-pointer" onclick="showPage('home')">
-                <div
-                    class="w-8 h-8 bg-cyan-500 rounded-sm flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                    <span class="font-bold text-slate-900 text-xl">A</span>
+    <!-- 1. HEADER -->
+    <header class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="group">
+                        <span
+                            class="font-display text-3xl font-semibold text-primary tracking-widest group-hover:opacity-80 transition">
+                            Y.Y.<span class="text-accent">creation</span>
+                        </span>
+                    </a>
                 </div>
-                <span class="text-lg font-bold tracking-wider drop-shadow-md">ASAHI PLANT ENG.</span>
-            </div>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-slate-200">
-                <button onclick="scrollToSection('mission')"
-                    class="hover:text-cyan-400 transition-colors drop-shadow-sm">MISSION</button>
-                <button onclick="scrollToSection('work')"
-                    class="hover:text-cyan-400 transition-colors drop-shadow-sm">WORK</button>
-                <button onclick="scrollToSection('message')"
-                    class="hover:text-cyan-400 transition-colors drop-shadow-sm">MESSAGE</button>
-                <button onclick="showPage('entry')"
-                    class="px-6 py-2 bg-cyan-500 text-slate-900 font-bold rounded-full hover:bg-cyan-400 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
-                    ENTRY
-                </button>
-            </div>
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex space-x-10 items-center">
+                    <!-- 英語メニューはDisplayフォントを使用 -->
+                    <a href="#concept"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">CONCEPT</a>
+                    <a href="#service"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">SERVICE</a>
+                    <a href="#works"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">WORKS</a>
+                    <a href="#plan"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">PLAN</a>
+                    <a href="#company"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">COMPANY</a>
+                    <a href="#news"
+                        class="text-sm font-display font-semibold text-text hover:text-accent tracking-widest transition duration-300">NEWS</a>
+                </nav>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden z-50 text-slate-200" onclick="toggleMobileMenu()">
-                <i data-lucide="menu" id="menu-icon" size="28"></i>
-            </button>
+                <!-- CTA Buttons -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="#contact"
+                        class="text-primary text-xs font-medium tracking-widest hover:text-accent transition duration-300 border-b border-transparent hover:border-accent pb-1">
+                        お問い合わせ
+                    </a>
+                    <a href="#plan"
+                        class="bg-primary text-white px-8 py-3 text-xs font-medium tracking-widest hover:bg-accent hover:text-primary transition duration-500 shadow-sm">
+                        月額プラン申込
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="menu-btn" class="text-primary hover:text-accent focus:outline-none transition">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Mobile Menu Overlay -->
+        <!-- Mobile Menu Panel -->
         <div id="mobile-menu"
-            class="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center gap-8 transition-opacity duration-300 opacity-0 pointer-events-none md:hidden">
-            <button onclick="mobileMenuAction('mission')"
-                class="text-2xl font-bold hover:text-cyan-400">MISSION</button>
-            <button onclick="mobileMenuAction('work')" class="text-2xl font-bold hover:text-cyan-400">WORK</button>
-            <button onclick="mobileMenuAction('message')"
-                class="text-2xl font-bold hover:text-cyan-400">MESSAGE</button>
-            <button onclick="mobileMenuAction('entry')" class="text-2xl font-bold text-cyan-400">ENTRY</button>
+            class="hidden lg:hidden bg-white border-t border-gray-100 overflow-hidden absolute w-full">
+            <div class="px-6 pt-8 pb-10 space-y-4 bg-white shadow-xl">
+                <a href="#concept"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">CONCEPT</a>
+                <a href="#service"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">SERVICE</a>
+                <a href="#works" class="block text-lg font-display font-medium text-primary tracking-widest">WORKS</a>
+                <a href="#plan" class="block text-lg font-display font-medium text-primary tracking-widest">PLAN</a>
+                <a href="#company"
+                    class="block text-lg font-display font-medium text-primary tracking-widest">COMPANY</a>
+                <a href="#news" class="block text-lg font-display font-medium text-primary tracking-widest">NEWS</a>
+                <div class="pt-8 space-y-4 border-t border-gray-100 mt-4">
+                    <a href="#contact"
+                        class="block w-full text-center border border-primary text-primary px-4 py-3 text-sm tracking-widest">お問い合わせ</a>
+                    <a href="#plan"
+                        class="block w-full text-center bg-primary text-white px-4 py-3 text-sm tracking-widest">月額プランお申し込み</a>
+                </div>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- ==============================
-         PAGE: HOME
-    =============================== -->
-    <div id="page-home">
+    <!-- 2. HERO SECTION -->
+    <section class="relative h-screen min-h-[700px] flex items-center justify-start overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                alt="Corporate Office"
+                class="w-full h-full object-cover transform scale-105 animate-[pulse_20s_ease-in-out_infinite]">
+            <div class="hero-gradient absolute inset-0"></div>
+        </div>
 
-        <!-- Hero Section -->
-        <header class="relative h-screen flex items-center justify-center overflow-hidden">
-            <!-- Slideshow Backgrounds -->
-            <div id="slideshow-container" class="absolute inset-0 pointer-events-none">
-                <!-- JSで画像を挿入します -->
-            </div>
-
-            <!-- Dark Overlay -->
-            <div class="absolute inset-0 bg-slate-950/50 z-10"></div>
-            <!-- Gradient Overlay -->
-            <div
-                class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10 pointer-events-none">
-            </div>
-
-            <!-- Tech Decorations (Spinning Rings) -->
-            <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-cyan-500/20 rounded-full animate-[spin_60s_linear_infinite]">
-                </div>
-            </div>
-
-            <!-- Hero Content -->
-            <div class="container mx-auto px-6 relative z-20 text-center md:text-left">
-                <div
-                    class="inline-block mb-4 px-4 py-1 border border-cyan-500/30 rounded-full bg-cyan-950/60 backdrop-blur-sm animate-fade-in-up shadow-lg">
-                    <span class="text-cyan-300 text-xs md:text-sm font-bold tracking-widest flex items-center gap-2">
-                        <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
-                        RECRUITMENT 2026
-                    </span>
-                </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24">
+            <div class="max-w-4xl fade-in-up">
+                <!-- Catchcopy: 高級感のある明朝体 -->
                 <h1
-                    class="text-4xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 tracking-tighter drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)] animate-fade-in-up delay-100">
-                    INVISIBLES<br />
-                    <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 drop-shadow-none filter drop-shadow-[0_2px_10px_rgba(6,182,212,0.5)]">
-                        INTELLIGENCE.
-                    </span>
+                    class="font-serif text-4xl md:text-6xl lg:text-7xl text-white font-medium leading-tight mb-10 tracking-widest text-shadow-sm">
+                    見えない<span class="text-accent">「想い」</span>を、<br>
+                    揺るぎない<span class="text-accent">「資産」</span>へ。
                 </h1>
+                <!-- Subcopy: 視認性を高めるため font-normal に変更し、テキストシャドウを追加 -->
+                <div class="w-16 h-[1px] bg-accent mb-10"></div>
                 <p
-                    class="text-white text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] animate-fade-in-up delay-200">
-                    北海道の静脈を、知能で動かせ。<br />
-                    水インフラをコードで制御する、<br class="hidden md:block" />
-                    <span
-                        class="inline-block text-white font-bold border-b-2 border-cyan-400 pb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">インフラの『脳』を作るエンジニア集団だ。</span>
+                    class="text-white text-base md:text-lg font-normal leading-loose mb-12 max-w-2xl tracking-wider drop-shadow-md">
+                    情報で溢れかえるこの時代。<br class="hidden md:block">
+                    問われるのは「誰が、どんな想いで語るか」。<br>
+                    WEB・映像・写真の力で、企業の体温を可視化する。<br>
+                    AIには決して真似できない、最強の信頼の証をあなたに。
                 </p>
-                <div class="flex flex-col md:flex-row gap-4 animate-fade-in-up delay-300">
-                    <button onclick="showPage('entry')"
-                        class="group px-8 py-4 bg-cyan-500 text-slate-900 font-bold text-lg rounded hover:bg-cyan-400 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.4)]">
-                        View Open Positions
-                        <i data-lucide="arrow-right" class="group-hover:translate-x-1 transition-transform"
-                            size="20"></i>
-                    </button>
-                    <button onclick="scrollToSection('mission')"
-                        class="px-8 py-4 border-2 border-white/80 text-white font-bold text-lg rounded hover:bg-white/20 transition-all backdrop-blur-sm drop-shadow-md">
-                        Who We Are
-                    </button>
-                </div>
-            </div>
-
-            <!-- Scroll Indicator -->
-            <div
-                class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 opacity-90 animate-bounce">
-                <span
-                    class="text-xs tracking-widest text-cyan-300 font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] pl-[0.1em]">SCROLL</span>
-                <div
-                    class="w-[2px] h-12 bg-gradient-to-b from-cyan-400 to-transparent shadow-[0_0_5px_rgba(0,0,0,0.5)]">
-                </div>
-            </div>
-        </header>
-
-        <!-- Mission Section -->
-        <section id="mission" class="py-16 md:py-24 bg-slate-950 relative">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row items-start gap-16">
-                    <div class="lg:w-1/3 lg:sticky lg:top-32">
-                        <h2
-                            class="text-6xl md:text-8xl font-black text-slate-800 leading-none absolute -top-8 -left-4 md:-top-10 md:-left-10 opacity-50 select-none">
-                            CORE
-                        </h2>
-                        <h2 class="text-3xl md:text-4xl font-bold mb-6 relative z-10">
-                            文明を止めない。<br />
-                            それが我々のコードだ。
-                        </h2>
-                        <div class="w-20 h-1 bg-cyan-500 mb-8 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
-                        <p class="text-slate-400 leading-loose text-justify">
-                            蛇口をひねれば水が出る。<br class="md:hidden" />スイッチを押せば機械が動く。<br />
-                            その「当たり前」の裏側には、<br class="md:hidden" />私たちが組んだ<span
-                                class="inline-block">膨大な制御プログラムと、</span><br class="hidden md:block" />
-                            <span class="inline-block">現場で汗を流した</span><span class="inline-block">配線技術があります。</span><br />
-                            私たちは「工事屋」の枠を超え、<br class="md:hidden" />環境プラントを最適化する<br class="hidden md:block" />
-                            <span class="inline-block text-slate-200 font-bold">「システムインテグレーター」</span>へと<br
-                                class="md:hidden" />進化しています。
-                        </p>
-                    </div>
-
-                    <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Feature Cards -->
-                        <div
-                            class="bg-slate-900 p-6 border border-slate-800 hover:border-cyan-500/50 transition-all group hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-                            <div
-                                class="text-cyan-500 mb-4 group-hover:scale-110 transition-transform origin-left drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">
-                                <i data-lucide="droplets" size="32"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-100">Water Infrastructure</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">浄水場・下水処理場の心臓部を設計。北海道の水を24時間365日守り抜く。</p>
-                        </div>
-                        <div
-                            class="bg-slate-900 p-6 border border-slate-800 hover:border-cyan-500/50 transition-all group hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-                            <div
-                                class="text-cyan-500 mb-4 group-hover:scale-110 transition-transform origin-left drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">
-                                <i data-lucide="cpu" size="32"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-100">Control Systems</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">PLC/SCADAを用いた高度な自動制御システムを自社で開発・実装。</p>
-                        </div>
-                        <div
-                            class="bg-slate-900 p-6 border border-slate-800 hover:border-cyan-500/50 transition-all group hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-                            <div
-                                class="text-cyan-500 mb-4 group-hover:scale-110 transition-transform origin-left drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">
-                                <i data-lucide="zap" size="32"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-100">Electrical Eng.</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">高圧受変電設備から計装工事まで。現場のリアルを知るからこそ書けるコードがある。
-                            </p>
-                        </div>
-                        <div
-                            class="bg-slate-900 p-6 border border-slate-800 hover:border-cyan-500/50 transition-all group hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-                            <div
-                                class="text-cyan-500 mb-4 group-hover:scale-110 transition-transform origin-left drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">
-                                <i data-lucide="shield" size="32"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-100">Sustainable Future</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">老朽化したインフラを最新技術で再生。地域のサステナビリティに直結する仕事。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Style Section -->
-        <section id="work" class="py-16 md:py-24 bg-slate-900 relative overflow-hidden">
-            <div
-                class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-cyan-900/10 to-transparent pointer-events-none">
-            </div>
-            <div class="container mx-auto px-6">
-                <div class="mb-16 text-center md:text-left">
-                    <span class="text-cyan-400 font-bold tracking-widest mb-2 block">WORK STYLE</span>
-                    <h2 class="text-3xl md:text-4xl font-bold">ハイブリッド・エンジニアという生き方。</h2>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div
-                        class="group relative h-[300px] md:h-[400px] bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-                        <div class="absolute inset-0 bg-slate-950/60 group-hover:bg-slate-950/40 transition-all z-10">
-                        </div>
-                        <div class="absolute inset-0 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"
-                            style="background-image: url('https://images.unsplash.com/photo-1581092921461-eab62e97a782?q=80&w=2070&auto=format&fit=crop');">
-                        </div>
-                        <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
-                            <div
-                                class="w-12 h-12 bg-cyan-500 text-slate-900 rounded-full flex items-center justify-center mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.6)]">
-                                <i data-lucide="cpu" size="24"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2">Design & Coding</h3>
-                            <p
-                                class="text-slate-300 text-sm opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                                銭函の自社工場・オフィスにて、CADによる図面設計とPLCプログラミングに没頭する。静寂の中でロジックを組む時間。
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div
-                        class="group relative h-[300px] md:h-[400px] bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-                        <div class="absolute inset-0 bg-slate-950/60 group-hover:bg-slate-950/40 transition-all z-10">
-                        </div>
-                        <div class="absolute inset-0 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"
-                            style="background-image: url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop');">
-                        </div>
-                        <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
-                            <div
-                                class="w-12 h-12 bg-cyan-500 text-slate-900 rounded-full flex items-center justify-center mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.6)]">
-                                <i data-lucide="zap" size="24"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2">Field Engineering</h3>
-                            <p
-                                class="text-slate-300 text-sm opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                                現場へ赴き、自分の組んだプログラムを実際の設備に命として吹き込む。巨大なポンプが動き出す瞬間の震えは、現場でしか味わえない。
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div
-                        class="group relative h-[300px] md:h-[400px] bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-                        <div class="absolute inset-0 bg-slate-950/60 group-hover:bg-slate-950/40 transition-all z-10">
-                        </div>
-                        <div class="absolute inset-0 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"
-                            style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');">
-                        </div>
-                        <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
-                            <div
-                                class="w-12 h-12 bg-cyan-500 text-slate-900 rounded-full flex items-center justify-center mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.6)]">
-                                <i data-lucide="users" size="24"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2">Team & Growth</h3>
-                            <p
-                                class="text-slate-300 text-sm opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                                少数精鋭だからこそ、ベテランの「暗黙知」を最短距離で吸収できる。マニュアルを超えた「直感」を磨く人間形成の場。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Statistics Section -->
-        <section class="py-20 border-y border-slate-800 bg-slate-950">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div class="flex flex-col items-center group">
-                        <span
-                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-600 mb-2 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-500">2001</span>
-                        <span
-                            class="text-cyan-500 text-xs font-bold tracking-widest group-hover:text-cyan-300 transition-colors">ESTABLISHED</span>
-                    </div>
-                    <div class="flex flex-col items-center group">
-                        <span
-                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-600 mb-2 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-500">100%</span>
-                        <span
-                            class="text-cyan-500 text-xs font-bold tracking-widest group-hover:text-cyan-300 transition-colors">自社一貫体制</span>
-                    </div>
-                    <div class="flex flex-col items-center group">
-                        <span
-                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-600 mb-2 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-500">13</span>
-                        <span
-                            class="text-cyan-500 text-xs font-bold tracking-widest group-hover:text-cyan-300 transition-colors">ELITE
-                            MEMBERS</span>
-                    </div>
-                    <div class="flex flex-col items-center group">
-                        <span
-                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-600 mb-2 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-500">∞</span>
-                        <span
-                            class="text-cyan-500 text-xs font-bold tracking-widest group-hover:text-cyan-300 transition-colors">FUTURE</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Message Section -->
-        <section id="message" class="py-16 md:py-24 bg-slate-900 relative overflow-hidden">
-            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-slate-950 to-transparent"></div>
-
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="flex flex-col lg:flex-row items-center gap-16">
-
-                    <!-- Image Side -->
-                    <div class="lg:w-5/12 relative">
-                        <div class="absolute -top-6 -left-6 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"></div>
-                        <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-blue-600/20 rounded-full blur-2xl"></div>
-
-                        <!-- Representative Image -->
-                        <div class="relative rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl group">
-                            <!-- 重要: ここに代表者の写真が表示されます -->
-                            <img src="./daihyou.png" alt="代表取締役 吉村 重行"
-                                class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
-
-                            <div
-                                class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-slate-900/90 to-transparent p-6">
-                                <p class="text-cyan-400 font-bold tracking-widest text-sm mb-1">PRESIDENT</p>
-                                <p class="text-2xl font-bold text-white">YOSHIMURA SHIGEYUKI</p>
-                                <p class="text-sm text-slate-400">代表取締役 吉村 重行</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text Side -->
-                    <div class="lg:w-7/12">
-                        <div class="text-cyan-500/20 mb-6">
-                            <i data-lucide="quote" size="48"></i>
-                        </div>
-                        <h2 class="text-3xl md:text-4xl font-bold mb-8 leading-tight">
-                            新しい未来を、<br />
-                            一緒に切り開いていきましょう。
-                        </h2>
-
-                        <div class="space-y-6 text-slate-300 leading-relaxed text-lg font-light">
-                            <p>
-                                この度は、弊社の採用サイトをご覧いただきまして、誠にありがとうございます。
-                            </p>
-                            <p>
-                                私たちは「<span
-                                    class="text-cyan-400 font-bold">○○を大切に社会に貢献する</span>」という理念のもと、創業以来、常に挑戦を恐れず、新しい価値の創造に向き合ってきました。
-                                職場では多々の個性と成長を大切にし、社員全員が活躍できる環境づくりを目指しています。
-                            </p>
-                            <p>
-                                私たちは、変化の激しい時代においても、チームワークと挑戦する心を大切に、さらなる発展を目指しています。
-                                学び、成長し、新しい未来を一緒に切り開いていきましょう。
-                            </p>
-                            <p
-                                class="font-medium text-white border-l-4 border-cyan-500 pl-4 py-1 bg-cyan-500/5 rounded-r">
-                                私たちのビジョンや風土に共感し、自分らしく働きたいと考えている皆様とお会いできることを、心より楽しみにしています。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Culture List -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 pt-12 border-t border-slate-800">
-                    <div class="flex gap-4 items-start group">
-                        <div class="mt-1 text-cyan-500 group-hover:text-cyan-300 transition-colors"><i
-                                data-lucide="chevron-right" size="20"></i></div>
-                        <div>
-                            <h5 class="text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">
-                                DXへの投資</h5>
-                            <p class="text-slate-400 text-sm leading-relaxed">最新の設計CADやドローン、ウェアラブルカメラを導入。泥臭い現場作業をスマートに。
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start group">
-                        <div class="mt-1 text-cyan-500 group-hover:text-cyan-300 transition-colors"><i
-                                data-lucide="chevron-right" size="20"></i></div>
-                        <div>
-                            <h5 class="text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">
-                                健康経営の実践</h5>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                『健康経営優良法人』を目指し、休める環境づくりを推進。良い仕事は、健全な心身から生まれる。</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start group">
-                        <div class="mt-1 text-cyan-500 group-hover:text-cyan-300 transition-colors"><i
-                                data-lucide="chevron-right" size="20"></i></div>
-                        <div>
-                            <h5 class="text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">
-                                未経験からの飛躍</h5>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                文系出身でも構わない。「知りたい」「動かしたい」という好奇心があれば、技術は後からついてくる。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Entry CTA Section -->
-        <section id="entry-cta" class="py-16 md:py-24 bg-slate-950 relative overflow-hidden">
-            <div
-                class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.05),transparent_70%)]">
-            </div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h2 class="text-4xl md:text-6xl font-black mb-8">JOIN THE <span
-                            class="text-cyan-400">GUARDIANS.</span></h2>
-                    <p class="text-xl text-slate-400 mb-12">私たちは、あなたの「志」を待っています。<br />北海道のインフラを、あなたの手でアップデートしませんか。</p>
-                    <div class="flex flex-col md:flex-row justify-center gap-6">
-                        <button onclick="showPage('entry')"
-                            class="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xl rounded hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] transition-all transform hover:-translate-y-1 text-center">
-                            ENTRY NOW
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div> <!-- End of Page: Home -->
-
-
-    <!-- ==============================
-         PAGE: ENTRY FORM
-    =============================== -->
-    <div id="page-entry" class="hidden min-h-screen bg-slate-950 relative">
-        <!-- Background Decorations -->
-        <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-600 z-50"></div>
-            <div class="absolute -top-[20%] -right-[20%] w-[800px] h-[800px] bg-cyan-900/10 rounded-full blur-3xl">
-            </div>
-            <div class="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-3xl">
+                <a href="#contact"
+                    class="group inline-flex items-center gap-4 border border-white/30 bg-white/5 backdrop-blur-sm text-white px-10 py-4 text-xs font-display tracking-[0.25em] hover:bg-white hover:text-primary transition duration-500 shadow-lg">
+                    VIEW MORE
+                    <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                </a>
             </div>
         </div>
 
-        <div class="container mx-auto px-6 py-12 relative z-10 pt-28"> <!-- Added pt-28 for navbar spacing -->
-            <button onclick="showPage('home')"
-                class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 group">
-                <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform" size="20"></i>
-                Back to Home
-            </button>
-
-            <div id="entry-form-container" class="max-w-3xl mx-auto">
-                <div class="text-center mb-12">
-                    <span
-                        class="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold tracking-widest rounded-full mb-4">
-                        RECRUITMENT FORM
-                    </span>
-                    <h1 class="text-4xl md:text-5xl font-black mb-4">JOIN THE GUARDIANS</h1>
-                    <p class="text-slate-400">
-                        北海道のインフラを守る「知能」になる。<br />
-                        あなたの第一歩を、ここから。
-                    </p>
-                </div>
-
-                <form id="recruitment-form" name="contact" method="POST" data-netlify="true" action="/"
-                    onsubmit="handleFormSubmit(event)"
-                    class="bg-slate-900/60 backdrop-blur-md p-6 md:p-12 rounded-2xl border border-slate-800 shadow-2xl">
-                    <!-- Netlify Forms用の隠しフィールド -->
-                    <input type="hidden" name="form-name" value="contact" />
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <!-- Name -->
-                        <div class="form-group">
-                            <label
-                                class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                                <i data-lucide="user" size="14"></i> 氏名 (NAME) <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" name="name" required placeholder="山田 太郎"
-                                class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-slate-600">
-                        </div>
-                        <!-- Email -->
-                        <div class="form-group">
-                            <label
-                                class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                                <i data-lucide="mail" size="14"></i> メールアドレス (EMAIL) <span class="text-red-500">*</span>
-                            </label>
-                            <input type="email" name="email" required placeholder="yourname@example.com"
-                                class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-slate-600">
-                        </div>
-                    </div>
-
-                    <!-- Address -->
-                    <div class="mb-8">
-                        <label
-                            class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                            <i data-lucide="map-pin" size="14"></i> 住所 (ADDRESS) <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="address" required placeholder="北海道小樽市銭函..."
-                            class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-slate-600">
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <!-- Job Type -->
-                        <div class="form-group">
-                            <label
-                                class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                                <i data-lucide="briefcase" size="14"></i> 応募職種 (JOB POSITION) <span
-                                    class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select name="jobType" required
-                                    class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all appearance-none cursor-pointer">
-                                    <option value="" disabled selected>職種を選択してください</option>
-                                    <option value="electrical">電気・計装エンジニア</option>
-                                    <option value="control">制御システム設計</option>
-                                    <option value="other">その他</option>
-                                </select>
-                                <div
-                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
-                                    ▼</div>
-                            </div>
-                        </div>
-                        <!-- Education -->
-                        <div class="form-group">
-                            <label
-                                class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                                <i data-lucide="graduation-cap" size="14"></i> 最終学歴 (EDUCATION) <span
-                                    class="text-red-500">*</span>
-                            </label>
-                            <input type="text" name="education" required placeholder="〇〇大学 工学部 卒"
-                                class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-slate-600">
-                        </div>
-                    </div>
-
-                    <!-- Motivation -->
-                    <div class="mb-12">
-                        <label
-                            class="block text-cyan-500 text-xs font-bold tracking-widest mb-2 flex items-center gap-2">
-                            <i data-lucide="pen-tool" size="14"></i> 志望動機 (MOTIVATION) <span
-                                class="text-red-500">*</span>
-                        </label>
-                        <textarea name="motivation" required rows="6"
-                            placeholder="あなたが当社で挑戦したいこと、これまでの経験などをご自由にお書きください。"
-                            class="w-full bg-slate-950/50 border border-slate-700 rounded p-4 text-white focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-slate-600 resize-none"></textarea>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="text-center">
-                        <button type="submit" id="submit-btn"
-                            class="w-full md:w-auto px-12 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xl rounded shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed">
-                            SUBMIT APPLICATION
-                        </button>
-                        <p class="mt-4 text-xs text-slate-500">
-                            ご入力いただいた個人情報は、採用選考以外の目的には使用いたしません。
-                        </p>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Success Message (Hidden by default) -->
-            <div id="success-message"
-                class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg">
-                <div
-                    class="relative z-10 bg-slate-900/90 backdrop-blur-xl p-10 rounded-2xl border border-cyan-500/30 text-center shadow-[0_0_50px_rgba(6,182,212,0.2)] animate-fade-in-up">
-                    <div
-                        class="w-20 h-20 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i data-lucide="check-circle" size="40" class="text-white"></i>
-                    </div>
-                    <h2 class="text-3xl font-bold mb-4">Application Sent.</h2>
-                    <p class="text-slate-400 mb-8">
-                        ご応募ありがとうございます。<br />
-                        採用担当より3営業日以内に、<br />
-                        ご入力いただいたメールアドレスへご連絡いたします。
-                    </p>
-                    <button onclick="showPage('home')"
-                        class="px-8 py-3 border border-slate-600 hover:border-cyan-500 text-slate-300 hover:text-cyan-400 font-bold rounded transition-all">
-                        Back to Home
-                    </button>
-                </div>
-            </div>
-
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+            <span class="text-[10px] text-white font-display tracking-widest writing-vertical-rl">SCROLL</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
-    </div> <!-- End of Page: Entry Form -->
+    </section>
 
+    <!-- 3. PHILOSOPHY -->
+    <section id="concept" class="py-32 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-accent font-display text-lg tracking-widest mb-6 block fade-in-up">PHILOSOPHY</span>
+            <h2 class="font-display text-4xl md:text-5xl text-primary mb-16 fade-in-up">Information or Story?</h2>
 
-    <!-- ==============================
-         FOOTER
-    =============================== -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-12 relative z-10">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+            <div class="prose prose-lg mx-auto text-text leading-loose fade-in-up">
+                <!-- 本文はゴシック体(sans)で読みやすく、重要な部分は明朝(serif)で強調 -->
+                <p class="mb-8 font-normal text-text-muted">
+                    AIの台頭により、整った文章や綺麗な画像は誰でも作れる時代になりました。<br>
+                    しかし、均質化された情報は、誰の記憶にも残りません。
+                </p>
+                <p class="mb-12 font-normal text-text-muted">
+                    採用難も、価格競争も、すべては「自社の固有の価値」が<br class="hidden md:block">
+                    伝わっていないことから起きています。
+                </p>
+                <p class="mb-12 font-serif text-primary text-2xl md:text-3xl leading-relaxed tracking-widest">
+                    必要なのは、単なる情報の羅列ではなく、<br>
+                    人を惹きつける<span class="border-b border-accent pb-1">「物語（ナラティブ）」</span>です。
+                </p>
+                <p class="font-medium text-primary">
+                    私たちはクリエイティブの力で、<br>
+                    あなたの会社の「本物」を証明します。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ADVANTAGE -->
+    <section id="service" class="py-32 bg-light relative">
+        <!-- Decorative Text -->
+        <span
+            class="absolute top-20 left-0 text-[120px] md:text-[200px] font-display text-gray-200/40 leading-none select-none pointer-events-none -z-0">
+            Strength
+        </span>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 fade-in-up">
+                <div class="max-w-2xl">
+                    <span class="text-accent font-display text-sm tracking-widest mb-4 block">OUR ADVANTAGE</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-primary mb-8">世界観を、分断させない。</h2>
+                    <p class="text-text-muted font-normal leading-relaxed">
+                        WEB制作、映像制作、スチール撮影。<br>
+                        これらを一社完結（ワンストップ）で行うことで、ブランドイメージの統一、<br class="hidden md:block">
+                        制作スピードの向上、中間マージンカットによるコスト最適化を実現します。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200 bg-white shadow-sm">
+                <!-- WEB -->
+                <div
+                    class="p-10 md:p-12 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-primary group transition duration-500 fade-in-up">
+                    <div class="text-accent mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-primary group-hover:text-white transition">
+                        WEB Production</h3>
+                    <p class="text-text-muted text-sm leading-loose font-normal group-hover:text-gray-300 transition">
+                        デザイン性だけでなく、更新性やSEOも考慮した戦略の基盤となるプラットフォームを構築します。
+                    </p>
+                </div>
+
+                <!-- MOVIE -->
+                <div class="p-10 md:p-12 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-primary group transition duration-500 fade-in-up"
+                    style="transition-delay: 0.1s;">
+                    <div class="text-accent mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-primary group-hover:text-white transition">
+                        Video Production</h3>
+                    <p class="text-text-muted text-sm leading-loose font-normal group-hover:text-gray-300 transition">
+                        テキストや静止画では言語化できない「熱量」や「雰囲気」を伝える、シネマティックな映像を制作します。
+                    </p>
+                </div>
+
+                <!-- PHOTO -->
+                <div class="p-10 md:p-12 hover:bg-primary group transition duration-500 fade-in-up"
+                    style="transition-delay: 0.2s;">
+                    <div class="text-accent mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-primary group-hover:text-white transition">
+                        Photography</h3>
+                    <p class="text-text-muted text-sm leading-loose font-normal group-hover:text-gray-300 transition">
+                        働く人の表情やオフィスの空気感。「今」しかない瞬間を切り取り、信頼の証としての写真を撮影します。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SERVICE & PLAN -->
+    <section id="plan" class="py-32 bg-primary text-white relative overflow-hidden">
+        <!-- Background decoration -->
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20 fade-in-up">
+                <span class="text-accent font-display text-sm tracking-widest mb-4 block">SERVICE & PLAN</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-medium tracking-wide">目的に合わせて選べる、<br
+                        class="md:hidden">2つのパートナーシップ</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                <!-- PLAN A -->
+                <div class="bg-white text-text p-10 md:p-12 relative overflow-hidden fade-in-up border border-gray-100">
+                    <div class="absolute top-6 right-6 text-gray-300 font-display text-sm tracking-widest">STANDARD
+                    </div>
+                    <h3 class="font-serif text-2xl font-medium mb-4 tracking-wider">サブスクリプション型<br>WEB制作</h3>
+                    <div class="w-10 h-[2px] bg-gray-200 mb-8"></div>
+
+                    <div class="flex items-baseline gap-2 mb-6">
+                        <span class="text-sm font-normal text-text-muted">月額</span>
+                        <span class="font-display text-4xl text-primary">10,000</span>
+                        <span class="text-sm font-normal text-text-muted">円（税別）〜</span>
+                    </div>
+
+                    <p class="text-text-muted mb-10 text-sm leading-loose font-normal">
+                        初期費用を抑え、プロ品質のWEBサイトを所有。サーバー・ドメイン管理から月々の保守更新まで含めた安心の定額プランです。スタートアップや中小企業様に最適です。
+                    </p>
+                    <ul class="text-sm text-text-muted space-y-4 mb-10 font-normal">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-accent text-xs"></i> 初期費用 0円〜
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-accent text-xs"></i>
+                            サーバー・ドメイン費込み</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-accent text-xs"></i> 月3回までの修正対応
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="block w-full text-center border border-text text-text py-4 text-xs tracking-widest hover:bg-primary hover:text-white hover:border-primary transition duration-300">
+                        詳細・デモサイトを見る
+                    </a>
+                </div>
+
+                <!-- PLAN B -->
+                <div
+                    class="bg-[#1a2236] text-white p-10 md:p-12 relative overflow-hidden border border-white/10 fade-in-up shadow-2xl">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-accent/20 rounded-bl-full"></div>
+                    <div class="absolute top-6 right-6 text-accent font-display text-sm tracking-widest">PREMIUM</div>
+
+                    <h3 class="font-serif text-2xl font-medium mb-4 tracking-wider text-white">トータル・ブランディング<br>（オーダーメイド）
+                    </h3>
+                    <div class="w-10 h-[2px] bg-accent mb-8"></div>
+
+                    <p class="font-serif text-xl text-white mb-6 tracking-wider">
+                        映像と写真で、<br>企業の「色」を鮮烈に。
+                    </p>
+
+                    <p class="text-gray-400 mb-10 text-sm leading-loose font-normal">
+                        WEB制作に加え、オリジナルPV制作、出張スチール撮影までを含めたフルオーダープラン。採用ブランディングや企業リニューアルなど、強いインパクトが必要なフェーズに。
+                    </p>
+                    <ul class="text-sm text-gray-300 space-y-4 mb-10 font-normal">
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-accent text-xs"></i> オリジナルWEBデザイン
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-accent text-xs"></i>
+                            4Kプロモーションビデオ撮影</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-accent text-xs"></i>
+                            プロカメラマンによる出張撮影</li>
+                    </ul>
+                    <a href="#"
+                        class="block w-full text-center bg-accent text-primary py-4 text-xs tracking-widest font-medium hover:bg-white transition duration-300">
+                        制作事例・お見積もり
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. WORKS -->
+    <section id="works" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-16 fade-in-up">
                 <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-6 h-6 bg-cyan-500 rounded-sm flex items-center justify-center">
-                            <span class="font-bold text-slate-900 text-xs">A</span>
-                        </div>
-                        <span class="text-lg font-bold text-white tracking-wider">ASAHI PLANT ENG.</span>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        朝日プラントエンジニアリング株式会社<br />
-                        〒047-0261 北海道小樽市銭函3丁目519-1<br />
-                        TEL: 0134-62-0083
-                    </p>
+                    <span class="text-accent font-display text-sm tracking-widest mb-4 block">PORTFOLIO</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-primary font-medium">Stories</h2>
                 </div>
-                <div class="flex gap-8 text-sm text-slate-400">
-                    <div class="flex flex-col gap-2">
-                        <span class="text-white font-bold mb-2">Navigation</span>
-                        <a href="#" onclick="showPage('home'); scrollToTop();"
-                            class="hover:text-cyan-400 cursor-pointer">Top</a>
-                        <a href="#" onclick="showPage('home'); scrollToSection('mission');"
-                            class="hover:text-cyan-400 cursor-pointer">Mission</a>
-                        <a href="#" onclick="showPage('entry')" class="hover:text-cyan-400 cursor-pointer">Recruit</a>
+                <a href="#"
+                    class="hidden md:inline-block text-xs tracking-widest font-display border-b border-gray-300 pb-1 hover:border-primary hover:text-primary transition text-text-muted">VIEW
+                    ALL</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                <!-- Work Item 1 -->
+                <div class="group cursor-pointer fade-in-up">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Work 1"
+                            class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-primary">WEB / PHOTO</span>
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-2">
-                        <span class="text-white font-bold mb-2">Legal</span>
-                        <a href="#" class="hover:text-cyan-400">Privacy Policy</a>
-                        <a href="#" class="hover:text-cyan-400">Site Map</a>
+                    <h3 class="font-serif text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        株式会社〇〇様</h3>
+                    <p class="text-xs text-text-muted leading-relaxed font-normal">創業100年の歴史を、3分の映像とサイトへ昇華</p>
+                </div>
+
+                <!-- Work Item 2 -->
+                <div class="group cursor-pointer fade-in-up" style="transition-delay: 0.1s;">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Work 2"
+                            class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-primary">MOVIE</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        △△テック株式会社様</h3>
+                    <p class="text-xs text-text-muted leading-relaxed font-normal">採用エントリー数200%増を実現したブランディング</p>
+                </div>
+
+                <!-- Work Item 3 -->
+                <div class="group cursor-pointer fade-in-up" style="transition-delay: 0.2s;">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Work 3"
+                            class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-primary">WEB</span>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        Global Logistics Inc.</h3>
+                    <p class="text-xs text-text-muted leading-relaxed font-normal">多言語対応サイトへのリニューアルとUI改善</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                <a href="#"
+                    class="inline-block text-xs font-display tracking-widest border-b border-gray-300 pb-1 hover:border-primary hover:text-primary transition">VIEW
+                    ALL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FLOW -->
+    <section class="py-32 bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 fade-in-up">
+                <span class="text-accent font-display text-sm tracking-widest mb-4 block">PROCESS</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-primary font-medium">Flow</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-gray-200 z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="group fade-in-up">
+                        <div
+                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            01</div>
+                        <div class="text-center">
+                            <h4 class="font-serif text-lg text-primary mb-3">ヒアリング</h4>
+                            <p class="text-xs text-text-muted font-normal leading-relaxed">現状の課題抽出と<br>ゴールの設定</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="group fade-in-up" style="transition-delay: 0.1s;">
+                        <div
+                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            02</div>
+                        <div class="text-center">
+                            <h4 class="font-serif text-lg text-primary mb-3">企画・構成</h4>
+                            <p class="text-xs text-text-muted font-normal leading-relaxed">ロケハン実施と<br>絵コンテ作成</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="group fade-in-up" style="transition-delay: 0.2s;">
+                        <div
+                            class="w-20 h-20 bg-primary border border-primary rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-accent shadow-lg relative z-10 transform md:-translate-y-2">
+                            03</div>
+                        <div class="text-center">
+                            <h4 class="font-serif text-lg text-primary mb-3 font-bold">撮影</h4>
+                            <p class="text-xs text-text-muted font-normal leading-relaxed">プロチームによる<br>スチール・動画撮影</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="group fade-in-up" style="transition-delay: 0.3s;">
+                        <div
+                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            04</div>
+                        <div class="text-center">
+                            <h4 class="font-serif text-lg text-primary mb-3">デザイン・実装</h4>
+                            <p class="text-xs text-text-muted font-normal leading-relaxed">コーディングと<br>動的演出の実装</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="group fade-in-up" style="transition-delay: 0.4s;">
+                        <div
+                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            05</div>
+                        <div class="text-center">
+                            <h4 class="font-serif text-lg text-primary mb-3">公開・運用</h4>
+                            <p class="text-xs text-text-muted font-normal leading-relaxed">サーバーアップ後<br>保守運用スタート</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-12 pt-8 border-t border-slate-800 text-center text-slate-500 text-xs">
-                &copy; ASAHI PLANT ENGINEERING CO., LTD. All Rights Reserved.
+        </div>
+    </section>
+
+    <!-- 8. COMPANY / STAFF -->
+    <section id="company" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in-up order-2 md:order-1">
+                    <span class="text-accent font-display text-sm tracking-widest mb-4 block">WHO WE ARE</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-primary font-medium mb-8 leading-normal">
+                        私たちが、<br>あなたの物語の語り部になります。</h2>
+                    <p class="text-text-muted leading-loose mb-10 font-normal">
+                        どれだけ素晴らしい技術やサービスを持っていても、それが伝わらなければ存在しないのと同じです。<br><br>
+                        私たちはただの制作会社ではありません。あなたのビジネスの核心にある「想い」を理解し、それを最も響くカタチで社会へ届けるパートナーです。
+                    </p>
+                    <div class="flex items-center space-x-5 border-t border-gray-100 pt-6">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                            alt="CEO" class="w-16 h-16 object-cover border border-gray-200">
+                        <div>
+                            <p class="text-[10px] tracking-widest text-text-muted mb-1 uppercase font-display">
+                                Representative / Creative Director</p>
+                            <p class="font-medium text-primary font-serif text-lg">山田 太郎</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Members Grid -->
+                <div class="grid grid-cols-2 gap-4 fade-in-up order-1 md:order-2" style="transition-delay: 0.2s;">
+                    <div class="space-y-3 pt-8">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Staff"
+                            class="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition duration-700">
+                        <div>
+                            <p class="text-[10px] tracking-widest text-gray-400 font-display uppercase">Art Director</p>
+                            <p class="font-medium text-sm text-primary font-serif">佐藤 花子</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Staff"
+                            class="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition duration-700">
+                        <div>
+                            <p class="text-[10px] tracking-widest text-gray-400 font-display uppercase">Videographer</p>
+                            <p class="font-medium text-sm text-primary font-serif">鈴木 一郎</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. NEWS -->
+    <section id="news" class="py-32 bg-[#F8F9FA]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-accent font-display text-sm tracking-widest mb-4 block">JOURNAL</span>
+                <h2 class="font-serif text-3xl text-primary font-medium">News & Topics</h2>
+            </div>
+
+            <div class="space-y-6 fade-in-up">
+                <!-- News Item 1 -->
+                <a href="#"
+                    class="block bg-white p-8 hover:shadow-lg transition duration-300 group border border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center">
+                        <div class="flex items-center mb-3 md:mb-0 md:w-56">
+                            <span class="text-xs text-gray-400 font-display tracking-widest">2023.10.20</span>
+                            <span
+                                class="ml-4 border border-gray-200 text-gray-500 text-[10px] px-2 py-0.5 tracking-wider">制作実績</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3
+                                class="text-sm md:text-base text-text font-normal group-hover:text-primary transition group-hover:underline decoration-gray-300 underline-offset-4">
+                                大手製造メーカー様のブランドムービーを公開しました。</h3>
+                        </div>
+                        <div
+                            class="hidden md:block text-gray-300 group-hover:text-accent transition group-hover:translate-x-2">
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </div>
+                    </div>
+                </a>
+                <!-- News Item 2 -->
+                <a href="#"
+                    class="block bg-white p-8 hover:shadow-lg transition duration-300 group border border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center">
+                        <div class="flex items-center mb-3 md:mb-0 md:w-56">
+                            <span class="text-xs text-gray-400 font-display tracking-widest">2023.10.15</span>
+                            <span
+                                class="ml-4 border border-gray-200 text-gray-500 text-[10px] px-2 py-0.5 tracking-wider">コラム</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3
+                                class="text-sm md:text-base text-text font-normal group-hover:text-primary transition group-hover:underline decoration-gray-300 underline-offset-4">
+                                採用動画で学生の心を掴む3つのポイント</h3>
+                        </div>
+                        <div
+                            class="hidden md:block text-gray-300 group-hover:text-accent transition group-hover:translate-x-2">
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </div>
+                    </div>
+                </a>
+                <!-- News Item 3 -->
+                <a href="#"
+                    class="block bg-white p-8 hover:shadow-lg transition duration-300 group border border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center">
+                        <div class="flex items-center mb-3 md:mb-0 md:w-56">
+                            <span class="text-xs text-gray-400 font-display tracking-widest">2023.10.01</span>
+                            <span
+                                class="ml-4 border border-gray-200 text-gray-500 text-[10px] px-2 py-0.5 tracking-wider">お知らせ</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3
+                                class="text-sm md:text-base text-text font-normal group-hover:text-primary transition group-hover:underline decoration-gray-300 underline-offset-4">
+                                オフィス移転のお知らせ</h3>
+                        </div>
+                        <div
+                            class="hidden md:block text-gray-300 group-hover:text-accent transition group-hover:translate-x-2">
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#"
+                    class="text-xs font-display tracking-widest text-text-muted hover:text-primary transition border-b border-gray-300 pb-1">VIEW
+                    ALL LIST</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. FOOTER -->
+    <footer id="contact" class="bg-primary text-white pt-24 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20">
+                <div class="fade-in-up">
+                    <h2 class="font-serif text-3xl md:text-5xl font-medium mb-8 leading-tight tracking-wide">
+                        あなたの本物を、<br>世界へ。
+                    </h2>
+                    <p class="text-gray-400 text-sm leading-loose mb-10 font-normal">
+                        ご相談、お見積もりは無料です。<br>
+                        まずはお気軽にお客様の「想い」をお聞かせください。
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i
+                                class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+
+                <div class="space-y-6 fade-in-up flex flex-col justify-center">
+                    <a href="#"
+                        class="block bg-white text-primary text-center py-8 px-8 hover:bg-accent hover:text-primary transition duration-500 group">
+                        <span
+                            class="block text-xs font-display tracking-widest mb-2 text-gray-400 group-hover:text-primary/70">CONTACT</span>
+                        <span
+                            class="block text-xl md:text-2xl font-serif font-medium flex items-center justify-center gap-4">
+                            無料相談・お見積もり
+                            <i class="fas fa-arrow-right text-sm group-hover:translate-x-2 transition transform"></i>
+                        </span>
+                    </a>
+                    <a href="#plan"
+                        class="block border border-gray-700 text-center py-5 px-8 hover:border-white hover:text-white transition duration-300">
+                        <span class="text-xs font-light tracking-widest">月額1万円プランについて詳しく</span>
+                    </a>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest">
+                <div class="flex space-x-8 mb-6 md:mb-0">
+                    <a href="#" class="hover:text-white transition">会社概要</a>
+                    <a href="#" class="hover:text-white transition">プライバシーポリシー</a>
+                    <a href="#" class="hover:text-white transition">特定商取引法に基づく表記</a>
+                </div>
+                <p class="font-display">&copy; 2023 Y.Y.creation All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==============================
-         SCRIPTS
-    =============================== -->
+    <!-- Scripts -->
     <script>
-        // --- 初期化 ---
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons(); // アイコンのレンダリング
-            startSlideshow();     // スライドショー開始
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        // --- スクロール検知 ---
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-slate-950/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-800', 'py-4');
-                navbar.classList.remove('bg-transparent', 'py-6');
-            } else {
-                navbar.classList.remove('bg-slate-950/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-800', 'py-4');
-                navbar.classList.add('bg-transparent', 'py-6');
-            }
-        });
+        // Scroll Animation (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
 
-        // --- ページ遷移 (SPA風) ---
-        function showPage(pageId) {
-            const home = document.getElementById('page-home');
-            const entry = document.getElementById('page-entry');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            // モバイルメニューが開いていたら閉じる
-            if (!mobileMenu.classList.contains('pointer-events-none')) {
-                toggleMobileMenu();
-            }
-
-            if (pageId === 'home') {
-                home.classList.remove('hidden');
-                entry.classList.add('hidden');
-                // フォームの状態をリセット
-                document.getElementById('entry-form-container').classList.remove('hidden');
-                document.getElementById('success-message').classList.add('hidden');
-                window.scrollTo(0, 0);
-            } else if (pageId === 'entry') {
-                home.classList.add('hidden');
-                entry.classList.remove('hidden');
-                window.scrollTo(0, 0);
-            }
-        }
-
-        // --- スムーズスクロール ---
-        function scrollToSection(id) {
-            showPage('home'); // まずホームを表示
-            setTimeout(() => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
                 }
-            }, 10); // DOM表示待ち
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // --- モバイルメニュー制御 ---
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-
-            if (menu.classList.contains('opacity-0')) {
-                // Open
-                menu.classList.remove('opacity-0', 'pointer-events-none');
-                menu.classList.add('opacity-100', 'pointer-events-auto');
-                // アイコン変更 (バツ印はLucideの書き換えが必要だが簡易的にクラス切り替えなどは複雑になるためこのまま)
-                // 実際の実装ではinnerHTMLでSVGを書き換えるのが一般的
-            } else {
-                // Close
-                menu.classList.remove('opacity-100', 'pointer-events-auto');
-                menu.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function mobileMenuAction(action) {
-            if (action === 'entry') {
-                showPage('entry');
-            } else {
-                scrollToSection(action);
-            }
-            toggleMobileMenu(); // メニューを閉じる
-        }
-
-        // --- スライドショー制御 ---
-        const heroImages = [
-            "https://images.unsplash.com/photo-1565043589221-1a6fd49d4597?q=80&w=2074&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=2070&auto=format&fit=crop"
-        ];
-        let currentImageIndex = 0;
-
-        function startSlideshow() {
-            const container = document.getElementById('slideshow-container');
-
-            // 画像要素を作成
-            heroImages.forEach((img, index) => {
-                const div = document.createElement('div');
-                div.className = `slide-image ${index === 0 ? 'active' : ''}`;
-                div.style.backgroundImage = `url(${img})`;
-                container.appendChild(div);
             });
+        }, observerOptions);
 
-            // タイマー設定
-            setInterval(() => {
-                const slides = document.querySelectorAll('.slide-image');
-                slides[currentImageIndex].classList.remove('active');
-
-                currentImageIndex = (currentImageIndex + 1) % heroImages.length;
-
-                slides[currentImageIndex].classList.add('active');
-            }, 6000);
-        }
-
-        // --- フォーム送信処理 (擬似) ---
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const originalText = btn.innerText;
-
-            // ローディング状態
-            btn.disabled = true;
-            btn.innerText = 'SENDING...';
-            btn.classList.add('animate-pulse');
-
-            // Netlifyへの送信処理
-            const formData = new FormData(event.target);
-
-            fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-                .then(() => {
-                    // 成功時の処理
-                    document.getElementById('entry-form-container').classList.add('hidden');
-                    document.getElementById('success-message').classList.remove('hidden');
-
-                    // ボタン状態リセット
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                    btn.classList.remove('animate-pulse');
-
-                    // フォームリセット
-                    event.target.reset();
-                })
-                .catch((error) => {
-                    console.error('Form submission error:', error);
-                    alert("送信に失敗しました。もう一度お試しください。");
-                    // ボタン状態リセット
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                    btn.classList.remove('animate-pulse');
-                });
-        }
+        document.querySelectorAll('.fade-in-up').forEach((element) => {
+            observer.observe(element);
+        });
     </script>
 </body>
 
