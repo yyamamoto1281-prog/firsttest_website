@@ -183,9 +183,9 @@
                 <p
                     class="text-white text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] animate-fade-in-up delay-200">
                     北海道の静脈を、知能で動かせ。<br />
-                    水インフラをコードで制御する、<br />
+                    水インフラをコードで制御する、<br class="hidden md:block" />
                     <span
-                        class="text-white font-bold border-b-2 border-cyan-400 pb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">インフラの『脳』を作るエンジニア集団だ。</span>
+                        class="inline-block text-white font-bold border-b-2 border-cyan-400 pb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">インフラの『脳』を作るエンジニア集団だ。</span>
                 </p>
                 <div class="flex flex-col md:flex-row gap-4 animate-fade-in-up delay-300">
                     <button onclick="showPage('entry')"
@@ -205,7 +205,7 @@
             <div
                 class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 opacity-90 animate-bounce">
                 <span
-                    class="text-xs tracking-widest text-cyan-300 font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">SCROLL</span>
+                    class="text-xs tracking-widest text-cyan-300 font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] pl-[0.1em]">SCROLL</span>
                 <div
                     class="w-[2px] h-12 bg-gradient-to-b from-cyan-400 to-transparent shadow-[0_0_5px_rgba(0,0,0,0.5)]">
                 </div>
@@ -226,11 +226,14 @@
                             それが我々のコードだ。
                         </h2>
                         <div class="w-20 h-1 bg-cyan-500 mb-8 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
-                        <p class="text-slate-400 leading-loose">
-                            蛇口をひねれば水が出る。スイッチを押せば機械が動く。
-                            その「当たり前」の裏側には、私たちが組んだ膨大な制御プログラムと、
-                            現場で汗を流した配線技術があります。
-                            私たちは「工事屋」の枠を超え、環境プラントを最適化する「システムインテグレーター」へと進化しています。
+                        <p class="text-slate-400 leading-loose text-justify">
+                            蛇口をひねれば水が出る。<br class="md:hidden" />スイッチを押せば機械が動く。<br />
+                            その「当たり前」の裏側には、<br class="md:hidden" />私たちが組んだ<span
+                                class="inline-block">膨大な制御プログラムと、</span><br class="hidden md:block" />
+                            <span class="inline-block">現場で汗を流した</span><span class="inline-block">配線技術があります。</span><br />
+                            私たちは「工事屋」の枠を超え、<br class="md:hidden" />環境プラントを最適化する<br class="hidden md:block" />
+                            <span class="inline-block text-slate-200 font-bold">「システムインテグレーター」</span>へと<br
+                                class="md:hidden" />進化しています。
                         </p>
                     </div>
 
