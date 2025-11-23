@@ -84,6 +84,28 @@
         .text-shadow-sm {
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
+
+        /* Scroll Indicator Animation */
+        @keyframes scroll-move {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 0.6;
+            }
+        }
+
+        .animate-scroll-move {
+            animation: scroll-move 2s infinite ease-in-out;
+        }
     </style>
 </head>
 
@@ -191,7 +213,7 @@
 
         <!-- Scroll Indicator -->
         <div
-            class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+            class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-scroll-move">
             <span class="text-[10px] text-white font-display tracking-widest writing-vertical-rl">SCROLL</span>
             <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
