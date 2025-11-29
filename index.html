@@ -28,11 +28,11 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0F172A', // Deep Navy (Trust)
-                        accent: '#C8A353',  // Gold/Bronze (Asset/Value)
-                        light: '#F8F9FA',   // Very Light Gray (Clean)
-                        text: '#2D3436',    // Soft Black
-                        'text-muted': '#636E72',
+                        primary: '#050505', // Rich Black
+                        accent: '#C8A353',  // Gold/Bronze
+                        light: '#1F2937',   // Dark Gray (was Light Gray)
+                        text: '#F3F4F6',    // Off-white (was Soft Black)
+                        'text-muted': '#9CA3AF', // Gray 400
                     },
                     fontFamily: {
                         // 本文・機能的なテキスト用 (Zen Kaku Gothic New)
@@ -55,8 +55,8 @@
         /* Custom Styles for Animations */
         .fade-in-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(40px);
+            transition: opacity 1.0s ease-out, transform 1.0s ease-out;
         }
 
         .fade-in-up.visible {
@@ -108,20 +108,88 @@
         .animate-scroll-move {
             animation: scroll-move 2s infinite ease-in-out;
         }
+
+        /* Hero Text Animation Styles */
+        .hero-text-line {
+            will-change: transform, opacity;
+            transition: transform 0.1s linear, opacity 0.1s linear;
+        }
+
+        /* Background Ring Animation */
+        @keyframes rotate-ring {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) rotateX(60deg) rotateY(10deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) rotateX(60deg) rotateY(10deg);
+            }
+        }
+
+        .bg-ring {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 70vw;
+            height: 70vw;
+            max-width: 700px;
+            max-height: 700px;
+            /* Create a metallic gold effect using border and box-shadow */
+            border: 4px solid rgba(212, 175, 55, 0.6);
+            /* Metallic Gold */
+            border-top-color: rgba(255, 223, 0, 0.9);
+            /* Brighter highlight */
+            border-bottom-color: rgba(184, 134, 11, 0.6);
+            /* Darker shadow */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -5;
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: rotate-ring 40s linear infinite;
+            /* Stronger glow for visibility */
+            box-shadow:
+                0 0 30px rgba(212, 175, 55, 0.2),
+                inset 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Second ring for depth - slightly different size and rotation */
+        .bg-ring-2 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 55vw;
+            height: 55vw;
+            max-width: 550px;
+            max-height: 550px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -5;
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: rotate-ring 50s linear infinite reverse;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 
-<body class="font-sans text-text antialiased bg-white tracking-relaxed overflow-x-hidden">
+<body
+    class="font-sans text-text antialiased bg-primary tracking-relaxed overflow-x-hidden selection:bg-accent selection:text-primary">
+
+    <!-- Background Rings -->
+    <div id="bg-ring-1" class="bg-ring"></div>
+    <div id="bg-ring-2" class="bg-ring-2"></div>
 
     <!-- 1. HEADER -->
-    <header class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+    <header class="fixed w-full bg-primary/80 backdrop-blur-md z-50 border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20 md:h-24">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="#" class="group">
                         <span
-                            class="font-display text-2xl md:text-3xl font-semibold text-primary tracking-widest group-hover:opacity-80 transition">
+                            class="font-display text-2xl md:text-3xl font-semibold text-white tracking-widest group-hover:opacity-80 transition">
                             Y.Y.<span class="text-accent">creation</span>
                         </span>
                     </a>
@@ -147,14 +215,14 @@
                 <!-- CTA Buttons -->
                 <div class="hidden lg:flex items-center space-x-6">
                     <a href="contact.html"
-                        class="bg-primary text-white px-8 py-3 text-xs font-medium tracking-widest hover:bg-accent hover:text-primary transition duration-500 shadow-sm">
+                        class="bg-white text-primary px-8 py-3 text-xs font-medium tracking-widest hover:bg-accent hover:text-primary transition duration-500 shadow-sm">
                         無料相談・お見積もり
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="lg:hidden flex items-center">
-                    <button id="menu-btn" class="text-primary hover:text-accent focus:outline-none transition">
+                    <button id="menu-btn" class="text-white hover:text-accent focus:outline-none transition">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -163,20 +231,17 @@
 
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu"
-            class="hidden lg:hidden bg-white border-t border-gray-100 overflow-hidden absolute w-full">
-            <div class="px-6 pt-8 pb-10 space-y-4 bg-white shadow-xl">
-                <a href="#concept"
-                    class="block text-lg font-display font-medium text-primary tracking-widest">CONCEPT</a>
-                <a href="#service"
-                    class="block text-lg font-display font-medium text-primary tracking-widest">SERVICE</a>
-                <a href="#works" class="block text-lg font-display font-medium text-primary tracking-widest">WORKS</a>
-                <a href="#plan" class="block text-lg font-display font-medium text-primary tracking-widest">PLAN</a>
-                <a href="#company"
-                    class="block text-lg font-display font-medium text-primary tracking-widest">COMPANY</a>
-                <a href="#news" class="block text-lg font-display font-medium text-primary tracking-widest">NEWS</a>
-                <div class="pt-8 space-y-4 border-t border-gray-100 mt-4">
+            class="hidden lg:hidden bg-primary border-t border-white/10 overflow-hidden absolute w-full">
+            <div class="px-6 pt-8 pb-10 space-y-4 bg-primary shadow-xl">
+                <a href="#concept" class="block text-lg font-display font-medium text-white tracking-widest">CONCEPT</a>
+                <a href="#service" class="block text-lg font-display font-medium text-white tracking-widest">SERVICE</a>
+                <a href="#works" class="block text-lg font-display font-medium text-white tracking-widest">WORKS</a>
+                <a href="#plan" class="block text-lg font-display font-medium text-white tracking-widest">PLAN</a>
+                <a href="#company" class="block text-lg font-display font-medium text-white tracking-widest">COMPANY</a>
+                <a href="#news" class="block text-lg font-display font-medium text-white tracking-widest">NEWS</a>
+                <div class="pt-8 space-y-4 border-t border-white/10 mt-4">
                     <a href="contact.html"
-                        class="block w-full text-center bg-primary text-white px-4 py-3 text-sm tracking-widest">無料相談・お見積もり</a>
+                        class="block w-full text-center bg-white text-primary px-4 py-3 text-sm tracking-widest">無料相談・お見積もり</a>
                 </div>
             </div>
         </div>
@@ -192,46 +257,58 @@
             <div class="hero-gradient absolute inset-0"></div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-16 md:pt-20">
-            <div class="max-w-4xl fade-in-up">
-                <!-- Catchcopy: 高級感のある明朝体 -->
-                <h1
-                    class="font-serif text-3xl md:text-6xl lg:text-7xl text-white font-medium leading-tight mb-8 md:mb-10 tracking-widest text-shadow-sm">
-                    <div class="mb-6 md:mb-10">見えない<span class="text-accent">「想い」</span>を、</div>
-                    <div class="inline-block whitespace-nowrap">揺るぎない<span class="text-accent">「資産」</span>へ。</div>
-                </h1>
-                <!-- Subcopy: 視認性を高めるため font-normal に変更し、テキストシャドウを追加 -->
-                <div class="w-16 h-[1px] bg-accent mb-8 md:mb-10"></div>
-                <p
-                    class="text-white text-sm md:text-lg font-normal leading-loose mb-10 md:mb-12 max-w-2xl tracking-wider drop-shadow-md">
-                    情報で溢れかえるこの時代。<br class="hidden md:block">
-                    問われるのは「誰が、どんな想いで語るか」。<br>
-                    WEB・映像・写真の力で、企業の体温を可視化する。<br>
-                    AIには決して真似できない、最強の信頼の証をあなたに。
-                </p>
+        <div class="relative z-10 w-full h-full flex flex-col justify-center items-center pb-20">
+            <div id="hero-text-1"
+                class="hero-text-line font-display font-bold text-5xl md:text-7xl lg:text-8xl text-white tracking-[0.2em] opacity-90">
+                THE
+            </div>
+            <div id="hero-text-2"
+                class="hero-text-line font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-wider my-2 md:my-4 relative z-20">
+                <span class="absolute -inset-4 blur-2xl bg-accent/20 rounded-full opacity-40 -z-10"></span>
+                <span
+                    class="relative text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-lg">UNTOLD</span>
+            </div>
+            <div id="hero-text-3"
+                class="hero-text-line font-display font-bold text-5xl md:text-7xl lg:text-8xl text-white tracking-[0.2em] opacity-90">
+                STORY
+            </div>
 
+            <div class="absolute bottom-32 right-8 md:right-16 text-right fade-in-up" style="transition-delay: 0.5s;">
+                <p class="text-white text-sm md:text-base font-serif tracking-widest leading-loose">
+                    その物語は、誰かの心を動かす。<br>
+                    クリエイティブ・パートナー
+                </p>
             </div>
         </div>
 
         <!-- Scroll Indicator -->
         <div
-            class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-scroll-move">
+            class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-scroll-move z-20">
             <span class="text-[10px] text-white font-display tracking-widest writing-vertical-rl">SCROLL</span>
             <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+
+        <!-- Bottom Fade Gradient for Seamless Transition -->
+        <div
+            class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10">
         </div>
     </section>
 
     <!-- 3. PHILOSOPHY -->
-    <section id="concept" class="py-16 md:py-24 bg-white">
+    <section id="concept" class="py-24 md:py-32 relative">
+        <!-- Background Glow -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] -z-10 pointer-events-none">
+        </div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <!-- Decorative Vertical Line -->
             <div class="w-[1px] h-16 bg-gradient-to-b from-transparent to-accent/50 mx-auto mb-8"></div>
 
             <div class="fade-in-up">
                 <span class="text-accent font-display text-sm tracking-[0.3em] mb-4 block uppercase">Philosophy</span>
-                <h2 class="font-display text-4xl md:text-6xl text-primary mb-10 font-medium tracking-wide">
+                <h2 class="font-display text-4xl md:text-6xl text-white mb-10 font-medium tracking-wide">
                     Information<br><span
-                        class="text-2xl md:text-3xl italic text-gray-400 font-normal mx-4">or</span>Story?
+                        class="text-2xl md:text-3xl italic text-gray-600 font-normal mx-4">or</span>Story?
                 </h2>
 
                 <div class="prose prose-lg mx-auto text-text leading-loose">
@@ -244,14 +321,14 @@
                         伝わっていないことから起きています。
                     </p>
                     <div class="relative inline-block">
-                        <span class="absolute -top-6 -left-4 text-6xl text-gray-100 font-display -z-10">“</span>
+                        <span class="absolute -top-6 -left-4 text-6xl text-white/10 font-display -z-10">“</span>
                         <p
-                            class="font-serif text-primary text-xl md:text-3xl leading-relaxed tracking-widest relative z-10">
+                            class="font-serif text-white text-xl md:text-3xl leading-relaxed tracking-widest relative z-10">
                             必要なのは、単なる情報の羅列ではなく、<br class="hidden md:block">
                             人を惹きつける<span class="border-b border-accent pb-1">「物語」</span>です。
                         </p>
                         <span
-                            class="absolute -bottom-8 -right-4 text-6xl text-gray-100 font-display -z-10 transform rotate-180">“</span>
+                            class="absolute -bottom-8 -right-4 text-6xl text-white/10 font-display -z-10 transform rotate-180">“</span>
                     </div>
                 </div>
             </div>
@@ -259,10 +336,10 @@
     </section>
 
     <!-- 4. ADVANTAGE -->
-    <section id="service" class="py-16 md:py-24 bg-light relative overflow-hidden">
+    <section id="service" class="py-24 md:py-32 relative overflow-hidden">
         <!-- Decorative Text -->
         <span
-            class="absolute top-10 md:top-20 left-0 text-[80px] md:text-[200px] font-display text-gray-200/40 leading-none select-none pointer-events-none -z-0">
+            class="absolute top-10 md:top-20 left-0 text-[80px] md:text-[200px] font-display text-white/5 leading-none select-none pointer-events-none -z-0">
             Strength
         </span>
 
@@ -270,7 +347,7 @@
             <div class="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 fade-in-up">
                 <div class="max-w-2xl">
                     <span class="text-accent font-display text-sm tracking-widest mb-4 block">OUR ADVANTAGE</span>
-                    <h2 class="font-serif text-2xl md:text-4xl text-primary mb-6 md:mb-8">世界観を、分断させない。</h2>
+                    <h2 class="font-serif text-2xl md:text-4xl text-white mb-6 md:mb-8">世界観を、分断させない。</h2>
                     <p class="text-text-muted font-normal leading-relaxed text-sm md:text-base">
                         WEB制作、映像制作、スチール撮影。<br class="hidden md:block">
                         これらを一社完結（ワンストップ）で行うことで、ブランドイメージの統一、<br class="hidden md:block">
@@ -279,10 +356,10 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200 bg-white shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 bg-transparent">
                 <!-- WEB -->
                 <div
-                    class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-primary group transition duration-500 fade-in-up">
+                    class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/5 group transition duration-500 fade-in-up">
                     <div
                         class="text-accent mb-6 md:mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
                         <i class="fas fa-desktop"></i>
@@ -297,7 +374,7 @@
                 </div>
 
                 <!-- MOVIE -->
-                <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-gray-100 hover:bg-primary group transition duration-500 fade-in-up"
+                <div class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/5 group transition duration-500 fade-in-up"
                     style="transition-delay: 0.1s;">
                     <div
                         class="text-accent mb-6 md:mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
@@ -313,7 +390,7 @@
                 </div>
 
                 <!-- PHOTO -->
-                <div class="p-8 md:p-12 hover:bg-primary group transition duration-500 fade-in-up"
+                <div class="p-8 md:p-12 hover:bg-white/5 group transition duration-500 fade-in-up"
                     style="transition-delay: 0.2s;">
                     <div
                         class="text-accent mb-6 md:mb-8 text-3xl group-hover:scale-110 transition duration-500 origin-left">
@@ -332,7 +409,7 @@
     </section>
 
     <!-- 5. SERVICE & PLAN -->
-    <section id="plan" class="py-16 md:py-24 bg-primary text-white relative overflow-hidden">
+    <section id="plan" class="py-24 md:py-32 relative overflow-hidden">
         <!-- Background decoration -->
         <div
             class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none">
@@ -347,15 +424,17 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 <!-- PLAN A -->
-                <div class="bg-white text-text p-8 md:p-12 relative overflow-hidden fade-in-up border border-gray-100">
-                    <div class="absolute top-6 right-6 text-gray-300 font-display text-sm tracking-widest">STANDARD
+                <div
+                    class="bg-white/5 text-text p-8 md:p-12 relative overflow-hidden fade-in-up border border-white/10 backdrop-blur-sm">
+                    <div class="absolute top-6 right-6 text-gray-500 font-display text-sm tracking-widest">STANDARD
                     </div>
-                    <h3 class="font-serif text-xl md:text-2xl font-medium mb-4 tracking-wider">サブスクリプション型<br>WEB制作</h3>
-                    <div class="w-10 h-[2px] bg-gray-200 mb-8"></div>
+                    <h3 class="font-serif text-xl md:text-2xl font-medium mb-4 tracking-wider text-white">
+                        サブスクリプション型<br>WEB制作</h3>
+                    <div class="w-10 h-[2px] bg-white/20 mb-8"></div>
 
                     <div class="flex items-baseline gap-2 mb-6">
                         <span class="text-sm font-normal text-text-muted">月額</span>
-                        <span class="font-display text-3xl md:text-4xl text-primary">10,000</span>
+                        <span class="font-display text-3xl md:text-4xl text-white">10,000</span>
                         <span class="text-sm font-normal text-text-muted">円（税別）〜</span>
                     </div>
 
@@ -371,14 +450,14 @@
                         </li>
                     </ul>
                     <a href="#"
-                        class="block w-full text-center border border-text text-text py-4 text-xs tracking-widest hover:bg-primary hover:text-white hover:border-primary transition duration-300">
+                        class="block w-full text-center border border-white/30 text-white py-4 text-xs tracking-widest hover:bg-white hover:text-primary hover:border-white transition duration-300">
                         詳細・デモサイトを見る
                     </a>
                 </div>
 
                 <!-- PLAN B -->
                 <div
-                    class="bg-[#1a2236] text-white p-8 md:p-12 relative overflow-hidden border border-white/10 fade-in-up shadow-2xl">
+                    class="bg-gradient-to-br from-white/10 to-transparent text-white p-8 md:p-12 relative overflow-hidden border border-white/20 fade-in-up shadow-2xl">
                     <div class="absolute top-0 right-0 w-20 h-20 bg-accent/20 rounded-bl-full"></div>
                     <div class="absolute top-6 right-6 text-accent font-display text-sm tracking-widest">PREMIUM</div>
 
@@ -412,63 +491,63 @@
     </section>
 
     <!-- 6. WORKS -->
-    <section id="works" class="py-16 md:py-24 bg-white">
+    <section id="works" class="py-24 md:py-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-8 md:mb-12 fade-in-up">
                 <div>
                     <span class="text-accent font-display text-sm tracking-widest mb-4 block">PORTFOLIO</span>
-                    <h2 class="font-serif text-3xl md:text-4xl text-primary font-medium">Stories</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Stories</h2>
                 </div>
                 <a href="#"
-                    class="hidden md:inline-block text-xs tracking-widest font-display border-b border-gray-300 pb-1 hover:border-primary hover:text-primary transition text-text-muted">VIEW
+                    class="hidden md:inline-block text-xs tracking-widest font-display border-b border-white/30 pb-1 hover:border-white hover:text-white transition text-text-muted">VIEW
                     ALL</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                 <!-- Work Item 1 -->
                 <div class="group cursor-pointer fade-in-up">
-                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-white/5">
                         <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Work 1"
                             class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
-                            <span class="text-[10px] font-display tracking-widest text-primary">WEB / PHOTO</span>
+                        <div class="absolute bottom-0 left-0 bg-primary/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-white">WEB / PHOTO</span>
                         </div>
                     </div>
                     <h3
-                        class="font-serif text-lg md:text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        class="font-serif text-lg md:text-xl font-medium text-white group-hover:text-accent transition mb-2">
                         株式会社〇〇様</h3>
                     <p class="text-xs text-text-muted leading-relaxed font-normal">創業100年の歴史を、3分の映像とサイトへ昇華</p>
                 </div>
 
                 <!-- Work Item 2 -->
                 <div class="group cursor-pointer fade-in-up" style="transition-delay: 0.1s;">
-                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-white/5">
                         <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Work 2"
                             class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
-                            <span class="text-[10px] font-display tracking-widest text-primary">MOVIE</span>
+                        <div class="absolute bottom-0 left-0 bg-primary/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-white">MOVIE</span>
                         </div>
                     </div>
                     <h3
-                        class="font-serif text-lg md:text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        class="font-serif text-lg md:text-xl font-medium text-white group-hover:text-accent transition mb-2">
                         △△テック株式会社様</h3>
                     <p class="text-xs text-text-muted leading-relaxed font-normal">採用エントリー数200%増を実現したブランディング</p>
                 </div>
 
                 <!-- Work Item 3 -->
                 <div class="group cursor-pointer fade-in-up" style="transition-delay: 0.2s;">
-                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-gray-100">
+                    <div class="overflow-hidden relative aspect-[4/3] mb-6 bg-white/5">
                         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Work 3"
                             class="w-full h-full object-cover transition duration-700 ease-in-out group-hover:scale-105 opacity-90 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-4 py-2">
-                            <span class="text-[10px] font-display tracking-widest text-primary">WEB</span>
+                        <div class="absolute bottom-0 left-0 bg-primary/90 backdrop-blur px-4 py-2">
+                            <span class="text-[10px] font-display tracking-widest text-white">WEB</span>
                         </div>
                     </div>
                     <h3
-                        class="font-serif text-lg md:text-xl font-medium text-primary group-hover:text-accent transition mb-2">
+                        class="font-serif text-lg md:text-xl font-medium text-white group-hover:text-accent transition mb-2">
                         Global Logistics Inc.</h3>
                     <p class="text-xs text-text-muted leading-relaxed font-normal">多言語対応サイトへのリニューアルとUI改善</p>
                 </div>
@@ -476,72 +555,72 @@
 
             <div class="mt-12 text-center md:hidden">
                 <a href="#"
-                    class="inline-block text-xs font-display tracking-widest border-b border-gray-300 pb-1 hover:border-primary hover:text-primary transition">VIEW
+                    class="inline-block text-xs font-display tracking-widest border-b border-white/30 pb-1 hover:border-white hover:text-white transition">VIEW
                     ALL</a>
             </div>
         </div>
     </section>
 
     <!-- 7. FLOW -->
-    <section class="py-16 md:py-24 bg-light">
+    <section class="py-24 md:py-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8 md:mb-12 fade-in-up">
                 <span class="text-accent font-display text-sm tracking-widest mb-4 block">PROCESS</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-primary font-medium">Flow</h2>
+                <h2 class="font-serif text-3xl md:text-4xl text-white font-medium">Flow</h2>
             </div>
 
             <div class="relative">
                 <!-- Connecting Line (Desktop) -->
-                <div class="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-gray-200 z-0"></div>
+                <div class="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-white/10 z-0"></div>
 
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
                     <!-- Step 1 -->
                     <div class="group fade-in-up">
                         <div
-                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            class="w-20 h-20 bg-primary border border-white/20 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-500 group-hover:text-white group-hover:border-white transition duration-300 relative z-10">
                             01</div>
                         <div class="text-center">
-                            <h4 class="font-serif text-lg text-primary mb-3">ヒアリング</h4>
+                            <h4 class="font-serif text-lg text-white mb-3">ヒアリング</h4>
                             <p class="text-xs text-text-muted font-normal leading-relaxed">現状の課題抽出と<br>ゴールの設定</p>
                         </div>
                     </div>
                     <!-- Step 2 -->
                     <div class="group fade-in-up" style="transition-delay: 0.1s;">
                         <div
-                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            class="w-20 h-20 bg-primary border border-white/20 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-500 group-hover:text-white group-hover:border-white transition duration-300 relative z-10">
                             02</div>
                         <div class="text-center">
-                            <h4 class="font-serif text-lg text-primary mb-3">企画・構成</h4>
+                            <h4 class="font-serif text-lg text-white mb-3">企画・構成</h4>
                             <p class="text-xs text-text-muted font-normal leading-relaxed">ロケハン実施と<br>絵コンテ作成</p>
                         </div>
                     </div>
                     <!-- Step 3 -->
                     <div class="group fade-in-up" style="transition-delay: 0.2s;">
                         <div
-                            class="w-20 h-20 bg-primary border border-primary rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-accent shadow-lg relative z-10 transform md:-translate-y-2">
+                            class="w-20 h-20 bg-white border border-white rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-primary shadow-lg shadow-white/10 relative z-10 transform md:-translate-y-2">
                             03</div>
                         <div class="text-center">
-                            <h4 class="font-serif text-lg text-primary mb-3 font-bold">撮影</h4>
+                            <h4 class="font-serif text-lg text-white mb-3 font-bold">撮影</h4>
                             <p class="text-xs text-text-muted font-normal leading-relaxed">プロチームによる<br>スチール・動画撮影</p>
                         </div>
                     </div>
                     <!-- Step 4 -->
                     <div class="group fade-in-up" style="transition-delay: 0.3s;">
                         <div
-                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            class="w-20 h-20 bg-primary border border-white/20 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-500 group-hover:text-white group-hover:border-white transition duration-300 relative z-10">
                             04</div>
                         <div class="text-center">
-                            <h4 class="font-serif text-lg text-primary mb-3">デザイン・実装</h4>
+                            <h4 class="font-serif text-lg text-white mb-3">デザイン・実装</h4>
                             <p class="text-xs text-text-muted font-normal leading-relaxed">コーディングと<br>動的演出の実装</p>
                         </div>
                     </div>
                     <!-- Step 5 -->
                     <div class="group fade-in-up" style="transition-delay: 0.4s;">
                         <div
-                            class="w-20 h-20 bg-white border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-300 group-hover:text-primary group-hover:border-primary transition duration-300 relative z-10">
+                            class="w-20 h-20 bg-primary border border-white/20 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-display font-semibold text-gray-500 group-hover:text-white group-hover:border-white transition duration-300 relative z-10">
                             05</div>
                         <div class="text-center">
-                            <h4 class="font-serif text-lg text-primary mb-3">公開・運用</h4>
+                            <h4 class="font-serif text-lg text-white mb-3">公開・運用</h4>
                             <p class="text-xs text-text-muted font-normal leading-relaxed">サーバーアップ後<br>保守運用スタート</p>
                         </div>
                     </div>
@@ -551,24 +630,24 @@
     </section>
 
     <!-- 8. COMPANY / STAFF -->
-    <section id="company" class="py-16 md:py-24 bg-white">
+    <section id="company" class="py-24 md:py-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <div class="fade-in-up order-2 md:order-1">
                     <span class="text-accent font-display text-sm tracking-widest mb-4 block">WHO WE ARE</span>
-                    <h2 class="font-serif text-2xl md:text-4xl text-primary font-medium mb-8 leading-normal">
+                    <h2 class="font-serif text-2xl md:text-4xl text-white font-medium mb-8 leading-normal">
                         私たちが、<br class="hidden md:block">あなたの物語の語り部になります。</h2>
                     <p class="text-text-muted leading-loose mb-10 font-normal text-sm md:text-base">
                         どれだけ素晴らしい技術やサービスを持っていても、それが伝わらなければ存在しないのと同じです。<br><br>
                         私たちはただの制作会社ではありません。あなたのビジネスの核心にある「想い」を理解し、それを最も響くカタチで社会へ届けるパートナーです。
                     </p>
-                    <div class="flex items-center space-x-5 border-t border-gray-100 pt-6">
+                    <div class="flex items-center space-x-5 border-t border-white/10 pt-6">
                         <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
-                            alt="CEO" class="w-16 h-16 object-cover border border-gray-200">
+                            alt="CEO" class="w-16 h-16 object-cover border border-white/20">
                         <div>
                             <p class="text-[10px] tracking-widest text-text-muted mb-1 uppercase font-display">
                                 Representative / Creative Director</p>
-                            <p class="font-medium text-primary font-serif text-lg">山田 太郎</p>
+                            <p class="font-medium text-white font-serif text-lg">山田 太郎</p>
                         </div>
                     </div>
                 </div>
@@ -581,7 +660,7 @@
                             class="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition duration-700">
                         <div>
                             <p class="text-[10px] tracking-widest text-gray-400 font-display uppercase">Art Director</p>
-                            <p class="font-medium text-sm text-primary font-serif">佐藤 花子</p>
+                            <p class="font-medium text-sm text-white font-serif">佐藤 花子</p>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -590,7 +669,7 @@
                             class="w-full aspect-[3/4] object-cover grayscale hover:grayscale-0 transition duration-700">
                         <div>
                             <p class="text-[10px] tracking-widest text-gray-400 font-display uppercase">Videographer</p>
-                            <p class="font-medium text-sm text-primary font-serif">鈴木 一郎</p>
+                            <p class="font-medium text-sm text-white font-serif">鈴木 一郎</p>
                         </div>
                     </div>
                 </div>
@@ -599,26 +678,26 @@
     </section>
 
     <!-- 9. NEWS -->
-    <section id="news" class="py-16 md:py-24 bg-[#F8F9FA]">
+    <section id="news" class="py-24 md:py-32">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8 md:mb-12 fade-in-up">
                 <span class="text-accent font-display text-sm tracking-widest mb-4 block">JOURNAL</span>
-                <h2 class="font-serif text-3xl text-primary font-medium">News & Topics</h2>
+                <h2 class="font-serif text-3xl text-white font-medium">News & Topics</h2>
             </div>
 
             <div class="space-y-4 md:space-y-6 fade-in-up">
                 <!-- News Item 1 -->
                 <a href="#"
-                    class="block bg-white p-6 md:p-8 hover:shadow-lg transition duration-300 group border border-gray-100">
+                    class="block bg-white/5 p-6 md:p-8 hover:bg-white/10 transition duration-300 group border border-white/10">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <div class="flex items-center mb-3 md:mb-0 md:w-56">
                             <span class="text-xs text-gray-400 font-display tracking-widest">2025.11.23</span>
                             <span
-                                class="ml-4 border border-gray-200 text-gray-500 text-[10px] px-2 py-0.5 tracking-wider">お知らせ</span>
+                                class="ml-4 border border-white/20 text-gray-400 text-[10px] px-2 py-0.5 tracking-wider">お知らせ</span>
                         </div>
                         <div class="flex-1">
                             <h3
-                                class="text-sm md:text-base text-text font-normal group-hover:text-primary transition group-hover:underline decoration-gray-300 underline-offset-4">
+                                class="text-sm md:text-base text-white font-normal group-hover:text-accent transition group-hover:underline decoration-gray-500 underline-offset-4">
                                 ホームページをリニューアルしました。</h3>
                         </div>
                         <div
@@ -631,14 +710,14 @@
 
             <div class="text-center mt-12">
                 <a href="#"
-                    class="text-xs font-display tracking-widest text-text-muted hover:text-primary transition border-b border-gray-300 pb-1">VIEW
+                    class="text-xs font-display tracking-widest text-text-muted hover:text-white transition border-b border-white/30 pb-1">VIEW
                     ALL LIST</a>
             </div>
         </div>
     </section>
 
     <!-- 10. FOOTER -->
-    <footer id="contact" class="bg-primary text-white pt-12 md:pt-20 pb-10">
+    <footer id="contact" class="bg-primary text-white pt-24 md:pt-32 pb-10 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 mb-12 md:mb-20">
                 <div class="fade-in-up">
@@ -671,14 +750,14 @@
                         </span>
                     </a>
                     <a href="#plan"
-                        class="block border border-gray-700 text-center py-5 px-8 hover:border-white hover:text-white transition duration-300">
+                        class="block border border-white/20 text-center py-5 px-8 hover:border-white hover:text-white transition duration-300">
                         <span class="text-xs font-light tracking-widest">月額1万円プランについて詳しく</span>
                     </a>
                 </div>
             </div>
 
             <div
-                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest">
+                class="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest">
                 <div class="flex space-x-8 mb-6 md:mb-0">
                     <a href="#" class="hover:text-white transition">会社概要</a>
                     <a href="#" class="hover:text-white transition">プライバシーポリシー</a>
@@ -717,6 +796,50 @@
 
         document.querySelectorAll('.fade-in-up').forEach((element) => {
             observer.observe(element);
+        });
+
+        // Hero Scroll Animation
+        const heroText1 = document.getElementById('hero-text-1');
+        const heroText2 = document.getElementById('hero-text-2');
+        const heroText3 = document.getElementById('hero-text-3');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // Only animate if within reasonable scroll range
+            if (scrollY < windowHeight * 1.5) {
+                const moveDistance = scrollY * 1.2; // Speed factor
+                const opacity = Math.max(0, 1 - scrollY / (windowHeight * 0.6)); // Fade out
+
+                if (heroText1) {
+                    heroText1.style.transform = `translateX(-${moveDistance}px)`;
+                    heroText1.style.opacity = opacity;
+                }
+                if (heroText2) {
+                    heroText2.style.transform = `translateX(${moveDistance}px)`;
+                    heroText2.style.opacity = opacity;
+                }
+                if (heroText3) {
+                    heroText3.style.transform = `translateX(-${moveDistance}px)`;
+                    heroText3.style.opacity = opacity;
+                }
+            }
+
+            // Ring Opacity Control
+            const ring1 = document.getElementById('bg-ring-1');
+            const ring2 = document.getElementById('bg-ring-2');
+
+            // Calculate opacity: 0 at top, fades in as hero text fades out
+            // Starts fading in at 20% scroll, max opacity at 80% scroll
+            let ringOpacity = 0;
+            if (scrollY > windowHeight * 0.2) {
+                // Increased max opacity from 0.4 to 0.8 for better visibility
+                ringOpacity = Math.min(0.8, (scrollY - windowHeight * 0.2) / (windowHeight * 0.5));
+            }
+
+            if (ring1) ring1.style.opacity = ringOpacity;
+            if (ring2) ring2.style.opacity = ringOpacity * 0.5; // Second ring is fainter
         });
     </script>
 </body>
